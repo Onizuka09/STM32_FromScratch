@@ -19,7 +19,7 @@ int main(void);
 void Reset_Handler(void);
 // init vector table
 uint32_t vector_table[] __attribute__((section(".isr_vector"))) = {
-    STACK_POINTER,
+    0,// in the stM32 NUCLEO-F4RE RF-manual the first elem of the VT is reseved (doesn't have an externel SRAM so the SP is hard-coded ) STACK_POINTER,
     (uint32_t)Reset_Handler,
     (uint32_t)NMI_Handler,
     (uint32_t)HardFault_Handler,
