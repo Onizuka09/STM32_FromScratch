@@ -94,14 +94,14 @@ SECTIONS {
     }>(VMA) AT> (LMA)
 }
 ```
-###### - `ENTRY(_symbol_name_)`: 
+###### **- ENTRY():** 
 This command sets the `entry-point address` information in the header `.elf` file (final executable) to `_symbol_name_`.<br>
 Usually the `_symbol_name_` refers to the first function to be executed by the CPU, in ST this function is called `Reset_Handler`.<br>
 - let's replace the `ENTRY` function with our suitable Handler: 
 ```ld 
 ENTRY(Reset_Handler)
 ```
-###### - `MEMORY` section:
+###### **- MEMORY section**:
 This command allows you to describe the different `memories` present in the target and their `start address` and `size information`.<br>
 This information also helps the `linker` to calculate total code and memory consumed so far and throw error if data, code, heap or stack areas cannot fit into the available sizes<br>
 ```ld
@@ -128,7 +128,7 @@ MEMORY{
 - `W`: means its readable and writable. 
 this ensures that code resides in a protected memory region and that data can be modified as needed.
 
-###### - `SECTIONS` section: 
+###### **- SECTIONS section:** 
 
 This section is responsible for creating the output sections present in the final executable. by merging all of the input section.<br>
 lets say we have `.c` file, let's compile it using `-c` to obtain `.o` file representing the binary format. 
@@ -154,20 +154,16 @@ we can do that for all the other sections.<br>
 ```ld
 SECTIONS
 {
-.text :
-{
+.text : {
 	*(.text) 
-	*(.rodata)
-	
+	*(.rodata)	
 }
-.data : 
-{
+.data : {
 	*(.data)
 }
-.bss :
-{
-*(.bss)
-}
+.bss : {
+    *(.bss)
+    }
 }
 ```
 >Note
@@ -180,20 +176,20 @@ we can do that using keywords:<br>
 `VMA` :virtual memory address (static memory), it could be another `SRAM` you defined (`SRAM`, `SRAM2`).<br>
 `LMA`: load memory address  (physical memory), `FLASH` or an external Flash memory <br>
 `AT` command. <br>
-using these variations, we can instruct the linker where to put the diffrent sections, (`FLASH`, `SRAM`, `EXternal FLASH`) it depends on your application. 
-** To instruct the linker to put the section in `LMA`**
+using these variations, we can instruct the linker where to put the different sections, (`FLASH`, `SRAM`, `EXternal FLASH`) it depends on your application.<br>
+**- To instruct the linker to put the section in `LMA`**
 ```ld
 .section_name{
 
 }>  FLASH
 ```
-** To instruct the linker relocate the section in from `LMA` to `VMA`**
+**- To instruct the linker relocate the section in from `LMA` to `VMA`**
 ```ld
 .section_name{
 
 }> SRAM AT>  FLASH
 ```
-** To instruct the linker to put the section in `VMA`**
+**- To instruct the linker to put the section in `VMA`**
 ```ld
 .section_name{
 
@@ -204,32 +200,23 @@ we obtain this code now:
 SECTIONS 
 {
   /* text section */ 
-  .text :
-  {
+  .text : {
     *(.text)
     *(.rodata)
-    . = ALIGN(4) ; 
-    _etext = . ; 
   }>FLASH
   /*  data section  */   
-  .data :
-  {
-    _sdata = . ; 
+  .data : {
     *(.data)
-    . = ALIGN(4) ; 
-    _edata = . ; 
   }> SRAM AT> FLASH
   /* uninitialized data */ 
-  .bss :
-  {
-    _sbss = . ;
+  .bss : {
   *(.bss) 
-  . = ALIGN(4) ; 
-  _ebss = .; 
   }> SRAM
 }
+```
 in linker script there are other utilities we need in the next section used in the `SECTIONS`
-- **`.` do operator**: 
+- **`.` (dot) operator**: 
+
 the `.` operator is counter that keeps record of used memory.<br> 
 for example we can measure the end of the `.text` section 
 ```ld 
