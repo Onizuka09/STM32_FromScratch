@@ -34,21 +34,21 @@ It describes the physical memory size (Flash and SRAM), also it describes the se
 * `Flash`       :   this memory contains the binary code you uploaded and it's going to run (volatile). 
 * `SRAM`        :   this is the ram that would hold your data at runtime (non-volatile)
 
-###### - The anatomy of `flash` and `SRAM`:<br>
-**- Let's first start with flash:**<br>
+###### **The anatomy of `flash` and `SRAM`:**
+- Let's first start with flash:<br>
 As said before the `flash` holds the application binary code, it is divided into sections: 
 - `.text` section   : contains the application code. 
 - `.data` section   : contains the (global/static) initialized data 
 - `.rodata` section : contains the constant data. 
 - `.bss` section    : contains the (global/static) uninitialized data. 
 
-**- The `SRAM` (static memory):**<br>
+- The `SRAM` (static memory):<br>
 The `SRAM` holds the data at runtime: 
 - `.data` section   : same as the `flash`, the `.data` of the `flash` are copied to `.data` section of `SRAM` at boot-time.   
 - `.bss` section    : same as the `flash`, the `.bss` of the `flash` are copied and initialized to `0` to `.bss` section of `SRAM` at boot-time.   
 - `stack` section   : contains the local data that are statically allocated and function calls at runtime. 
 - `heap` section    : contains dynamic allocated memory regions, at runtime. 
-###### - Other memory regions: 
+###### **Other memory regions**: 
 * `Peripherals`   :   a memory area, describes where the MCU peripherals are mapped, it is used to control the peripherals through registers.   
 <!--- TODO: Look and understand more about the other types of memory in Embedded systems --->
 
@@ -94,7 +94,7 @@ SECTIONS {
     }>(VMA) AT> (LMA)
 }
 ```
-###### **- ENTRY():** 
+###### **ENTRY():** 
 This command sets the `entry-point address` information in the header `.elf` file (final executable) to `_symbol_name_`.<br>
 Usually the `_symbol_name_` refers to the first function to be executed by the CPU, in ST this function is called `Reset_Handler`.<br>
 - let's replace the `ENTRY` function with our suitable Handler: 
@@ -128,7 +128,7 @@ MEMORY{
 - `W`: means its readable and writable. 
 this ensures that code resides in a protected memory region and that data can be modified as needed.
 
-###### **- SECTIONS section:** 
+###### **SECTIONS{} :** 
 
 This section is responsible for creating the output sections present in the final executable. by merging all of the input section.<br>
 lets say we have `.c` file, let's compile it using `-c` to obtain `.o` file representing the binary format. 
@@ -138,7 +138,7 @@ gcc -c main.c  -o main.o
 Notice here, we did not command the `gcc` to `link`, we just `compiled` and `translated` the `.c` file into `binary` format.<br>
 > we will explore this in a later chapter. 
 
-Imagin now we have multiple `.o` files. Each `binary` file has section like `.text`, `.data`. <br>
+Imagine now we have multiple `.o` files. Each `binary` file has section like `.text`, `.data`. <br>
 In the `SECTIONS` we telling the linker to combine all of the `.text` section together, etc.. <br>
 ```ld
 SECTIONS{
@@ -177,6 +177,8 @@ we can do that using keywords:<br>
 `LMA`: load memory address  (physical memory), `FLASH` or an external Flash memory <br>
 `AT` command. <br>
 using these variations, we can instruct the linker where to put the different sections, (`FLASH`, `SRAM`, `EXternal FLASH`) it depends on your application.<br>
+
+
 **- To instruct the linker to put the section in `LMA`**
 ```ld
 .section_name{
