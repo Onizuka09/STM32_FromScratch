@@ -314,7 +314,7 @@ arm-none-gcc -nostdlib -T stm32_ls.ld *.o -o prog.elf
 
 - `-nostdlib`: specifies that we are not using the `glibc` the C standard libary. ( gcc by default assumes you are using `libc` )
 - `-Map`: creates a file with a detailed overview of the memory layout, including the sizes and locations of all sections and symbols. 
-##### 6- Linker script summery : 
+##### 6- Linker script summery  
 the `linker script` is an essential file to describe how you want to control your memory.
 In the next Section we will see what is `start up` file and how to write one. 
 
@@ -569,7 +569,7 @@ main();
 
 }
 ```
-##### 6- startup file summery
+##### 6- startup file sumumey
 in this section i talked about how a general overview of  `interuupts`, an sneek peak how `stm32f4` boots up and how to write a `startup file`
 
 ### Elf file 
