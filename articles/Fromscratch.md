@@ -569,7 +569,7 @@ main();
 
 }
 ```
-##### 6- startup file sumumey
+##### 6- startup file summery
 in this section i talked about how a general overview of  `interuupts`, an sneek peak how `stm32f4` boots up and how to write a `startup file`
 
 ### Elf file 
