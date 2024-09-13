@@ -4,7 +4,7 @@ Have you ever wondered when you are woking on an Arduino project how does everyt
 
 well, let's figure out to program an STM32 and set up its environment from scratch.<br> 
 
-I am using a `STM32F4RET6-NCLEO` board, it has a CORTEX-M4 micro-processor and 00 FLASH and 00 SRAM.<br>
+I am using a `STM32F4RET6-NUCLEO` board, it has a CORTEX-M4 micro-processor and 00 FLASH and 00 SRAM.<br>
 This article will explore how to set up a development environment from scratch, starting with a bare `main.c` file as our main application (a blinky sketch).<br>
 A development should contains these elements : <br>
 - `code editor`: a piece of software to write your code.<br> 
@@ -13,7 +13,7 @@ A development should contains these elements : <br>
 - `linker script`:  describes you memory layout and how to set up different sections<br>
 In this article i will focus how to setup an Development environment from scratch without the need of an IDE.<br> 
 
-I will assume that you are using linux "ubuntu" as your operating system.<br> 
+I will assume that you are using `ubuntu` as your operating system.<br> 
 
 ### Table of Contents
 - [Article 1: Development Environment from Scratch for an STM32](#article-1-development-environment-from-scratch-for-an-stm32)
